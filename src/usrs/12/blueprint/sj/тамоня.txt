@@ -1,1 +1,0 @@
-{'keywords': [{'srws': 10, 'skwc': 'or', 'keys': 'таможня'}]}
