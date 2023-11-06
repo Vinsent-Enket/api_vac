@@ -19,7 +19,6 @@ class HeadHanterAPI(abstract_api):
             "per_page": 99
         }
         self.data = self.get_request()
-        print(len(self.data['items']), 'Хедханер число найденных вакансий')
 
     def get_request(self):
         """
@@ -30,8 +29,6 @@ class HeadHanterAPI(abstract_api):
         req = requests.get(self.url, self.params)
         all_data = json.loads(req.content.decode("utf-8"))
         req.close()
-        print(f"Поиск завершен, получено {all_data['found']} результатов с headhunter\n")
-
         return all_data
 
 
@@ -46,7 +43,6 @@ class SuperJobAPI(abstract_api):
             'count': 99,
             'page': 0,
             "keywords": keywords,
-
         }
         self.data = self.get_request()
 
@@ -54,8 +50,6 @@ class SuperJobAPI(abstract_api):
         req = requests.get(self.url, params=self.params, headers=self.headers)
         all_data = json.loads(req.content.decode("utf-8"))
         req.close()
-        print(f"Поиск завершен, получено {all_data['total']} результатов с superjob\n")
-
         return all_data
 
     @property

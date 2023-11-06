@@ -21,6 +21,7 @@ def main():
         print("\nЧто делаем сейчас?")
         user_answ = input("[1] Выводить по одной на консоль для добавления в избранное?\n"
                           "[2] Отсортировать по зп/дате?\n"
+                          "[3] Отфильтровать?\n"
                           "[4] Новый запрос\n"
                           "[0] Выйти\n"
                           "---> ")
@@ -29,10 +30,13 @@ def main():
         elif user_answ == "2":
             Vacancy.all_sort()
         elif user_answ == "3":
+            Vacancy.all_filtration()
+        elif user_answ == "4":
             new_response_text = input("Какое новое слово?\n-->")
             HH_response = HeadHanterAPI(new_response_text)
             SJ_response = SuperJobAPI(new_response_text)
             Vacancy.instantiate_from_data(HH_response.data, SJ_response.data)
+
         elif user_answ == "0":
             break
         else:

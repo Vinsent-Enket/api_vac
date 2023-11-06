@@ -86,9 +86,9 @@ class Vacancy:
                         salary_to=vaca['salary']['to'],
                         requirement=vaca['snippet']['requirement'],
                         responsibility=vaca['snippet']['responsibility'],
-                        professional_roles=vaca['professional_roles'],
-                        employment=vaca['employment'],
-                        employer=vaca['employer'],
+                        professional_roles=vaca['professional_roles'][0]['name'],
+                        employment=vaca['employment']['name'],
+                        employer=vaca['employer']['name'],
                         date=cls.str_date_conv(vaca['published_at']),
                         service_name="HeadHunter")
             except FileNotFoundError:  # некоторые данные иногда, почему-то, приходят поврежденными видимо капча
@@ -174,11 +174,6 @@ class Vacancy:
                           "[1] - Минимальная ЗП\n"
                           "[2] - Дата\n"
                           "---> ")
-        cls.dict_characters = {'Название вакансии': [], 'Город': [], 'Зарплата от': [],
-                               'Зарплата до': [], 'Требования': [], 'Чем придется заниматься': [],
-                               'Справочное название вакансии': [], 'Тип занятости': [], 'Работодатель': [],
-                               'Дата публикации': []
-                               }  # так же сбрасываем и словарь
         if user_answ == "1":
             user_answ = int(input("Сколько вакансий оставить?\n---> "))
             for i in range(len(cls.all)):
@@ -197,9 +192,9 @@ class Vacancy:
             Конвертер из юникс времени
             """
         unix_timestamp = time_unix
-        unix_timestamp = float(unix_timestamp)
-        time_struct = time.gmtime(unix_timestamp)
-        format_date = time.strftime("%Y-%m-%d %H:%M:%S", time_struct)
+
+        format_date = datetime.utcfromtimestamp(unix_timestamp)
+
         return format_date  # сделать одинаково с временем хедхантера
 
     @classmethod
@@ -210,4 +205,5 @@ class Vacancy:
         :return:
         """
         format_date = datetime.strptime(data_str[:-5], "%Y-%m-%dT%H:%M:%S")
+
         return format_date
